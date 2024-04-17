@@ -13,16 +13,11 @@ colors = np.empty(image.shape, dtype=object)
 
 test_image[:,:,:] = False
 test_image[image >= 0.7] = True
-print("Test A")
-print(np.unique(test_image))
-
-colors[test_image.astype(bool)] = "black"
-print("Test B")
 
 # Create a figure with 3 subplots
 ax = plt.figure().add_subplot(projection='3d')
-print("Test C")
-ax.scatter(*np.where(test_image.astype(bool)), c=colors[test_image.astype(bool)], s=1, alpha=0.1)
-print("Test D")
+print("Plotting...  ", end="")
+ax.scatter(*np.where(test_image.astype(bool)), c='k', s=1, alpha=0.1)
+print("Done !")
 plt.show()
 
