@@ -70,7 +70,6 @@ def eigendecomposition(S):
     return lam, vec[:, 0]
 
 
-
 def anisotropy(eig_vals):
     assert eig_vals.size==3, "anisotropy only works with 3 eigen-values"
     
