@@ -8,16 +8,17 @@ import tifffile
 # Load the image
 image = tifffile.imread('multicube.tif').astype(float)/255
 
-test_image = np.empty_like(image)
-colors = np.empty(image.shape, dtype=object)
+test_image = np.ones(image.shape, dtype=bool)
 
-test_image[:,:,:] = False
-test_image[image >= 0.7] = True
+x = np.where(test_image)[0]
+y = np.where(test_image)[1]
+z = np.where(test_image)[2]
 
-# Create a figure with 3 subplots
+# Create a 3d plot
 ax = plt.figure().add_subplot(projection='3d')
 print("Plotting...  ", end="")
-ax.scatter(*np.where(test_image.astype(bool)), c='k', s=1, alpha=0.1)
+ax.scatter(x,y,z, c=image.ravel(), s=1, alpha=1, cmap='gray')
 print("Done !")
-plt.show()
+plt.savefig('Dataset_easy.png')
+# plt.show()
 
