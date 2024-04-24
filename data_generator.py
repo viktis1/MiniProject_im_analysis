@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 # Load the image
 im = tifffile.imread('multicube.tif').astype(float)/255
-S_ish = calculates_S(im, 7, 5)
+S_ish = calculates_S(im, 3, 2)
 
 
 # Initialize arrays to hold dominant direction and shape measures
