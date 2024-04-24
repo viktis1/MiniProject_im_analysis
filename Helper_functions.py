@@ -13,12 +13,21 @@ def calculates_S(arr, rho, sigma):
 
     x = np.arange(-cutoff, cutoff+1)
     gauss_weights = np.exp(-x**2/(rho*2))
+    gauss_weights_prior = np.exp(-x**2/(sigma*2))
     laplace_weights = -x*np.exp(-x**2/(sigma*2))
 
     # Compute the gradients. A Gaussian prior is used to smooth the picture before gradient is taken. Due to the separability of Gaussian kernels, this corresponds to convolving with the derivative of the Gaussian filter.
     Vx = convolve1d(arr, laplace_weights, axis=0)
-    Vy = convolve1d(arr, laplace_weights, axis=1)
-    Vz = convolve1d(arr, laplace_weights, axis=2)
+    Vx = convolve1d(Vx, gauss_weights_prior, axis=1)
+    Vx = convolve1d(Vx, gauss_weights_prior, axis=2)
+
+    Vy = convolve1d(arr, gauss_weights_prior, axis=0)
+    Vy = convolve1d(Vy, laplace_weights, axis=1)
+    Vy = convolve1d(Vy, gauss_weights_prior, axis=2)
+
+    Vz = convolve1d(arr, gauss_weights_prior, axis=0)
+    Vz = convolve1d(Vz, gauss_weights_prior, axis=1)
+    Vz = convolve1d(Vz, laplace_weights, axis=2)
 
     # Define the 6 volumes
     Vxx = Vx*Vx
@@ -80,5 +89,4 @@ def anisotropy(eig_vals):
     cs = l1/l3 # Measure of sphericity
     
     return np.array([cl, cp, cs])
-
 

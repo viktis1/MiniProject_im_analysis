@@ -25,8 +25,6 @@ for x in tqdm(range(S_ish.shape[0])):
             best_direction[x,y,z,:] = vec # Load best direction
             shape_measure[x,y,z,:] = c # Load shape measures
 
-# Create colormap
-cm = plt.get_cmap("RdYlGn")
 
 np.save('best_direction.npy', best_direction)
 np.save('shape_measure.npy', shape_measure)
