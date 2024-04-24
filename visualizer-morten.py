@@ -12,8 +12,9 @@ shape_measure = np.load('shape_measure.npy')
 best_direction = np.load('best_direction.npy')
 
 place_holder = np.ones((shape_measure.shape[0], shape_measure.shape[1], shape_measure.shape[2]), dtype=bool)
-mask = np.argmax(shape_measure, axis=3)
-mask = shape_measure[:,:,:,0] > 0.8
+# mask = np.argmax(shape_measure, axis=3) == 0
+# print(np.shape(mask))
+mask = shape_measure[:,:,:,0] > 0.5
 mask = mask.astype(bool)
 # new_mask = np.zeros_like(mask)
 # new_mask[mask == 0] = 1
@@ -51,7 +52,7 @@ cmap = cm.get_cmap('viridis', 3)
 ##########
 fig = plt.figure()
 ax = fig.add_subplot(projection='3d')
-sp = ax.scatter(*np.where(mask), c=colorspace, s=1, alpha=1)
+sp = ax.scatter(*np.where(mask), c=colorspace, s=0.2, alpha=1)
 # To add a colorbar, we dont want the alpha-value to affect the colorbar, so we will plot points not in image
 # p = ax.scatter([900,900,900], [900,900,900], [900,900,900], c=[0,1,2], cmap=cmap)
 # cbar = fig.colorbar(sp, ax=ax, ticks=[0.33, 1, 1.66], alpha=1)
