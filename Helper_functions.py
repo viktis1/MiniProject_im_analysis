@@ -82,5 +82,3 @@ def anisotropy(eig_vals):
     return np.array([cl, cp, cs])
 
 
-
-    
